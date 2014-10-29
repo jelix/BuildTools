@@ -2,7 +2,7 @@
     "name": "jelix/buildtools",
     "type": "library",
     "description": "Tools to build package of a project",
-    "keywords": ["framework"],
+    "keywords": ["preprocessor", "packager"],
     "homepage": "http://jelix.org",
     "license": "GPL-2.0",
     "authors": [
