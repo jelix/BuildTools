@@ -277,11 +277,11 @@ function debugVars(){
 }
 
 try{
-    if(!isset($BUILD_OPTIONS))
+    if(!isset($GLOBALS['BUILD_OPTIONS']))
         throw new Exception('$BUILD_OPTIONS variable is missing in your build file');
 
-    $BUILD_OPTIONS['VERBOSE_MODE']=array("",false);
-    ENV::init($BUILD_OPTIONS);
+    $GLOBALS['BUILD_OPTIONS']['VERBOSE_MODE']=array("",false);
+    ENV::init($GLOBALS['BUILD_OPTIONS']);
 
     init();
 
