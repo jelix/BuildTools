@@ -178,7 +178,10 @@ class jPreProcessor{
 
             }elseif(preg_match('/^\#(expand)\s(.*)$/m',$sline,$m)){
                 if($isOpen){
-                    $tline=preg_replace('/\_\_(\w*)\_\_/e', '(isset($this->_variables["\\1"])&&$this->_variables["\\1"]!==\'\'?$this->_variables["\\1"]:"__\\1__")',$m[2]);
+                    $vars = $this->_variables;
+                    $tline = preg_replace_callback('/\_\_(\w*)\_\_/', function($matches) use($vars) {
+                        return (isset($vars[$matches[1]])&&$vars[$matches[1]]!==''?$vars[$matches[1]]:"__".$matches[1]."__");
+                    }, $m[2]);
                 }else{
                     $tline=false;
                 }
