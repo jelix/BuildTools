@@ -20,7 +20,7 @@
     "replace": {
     },
     "autoload": {
-        "psr-4": { "Jelix\\BuildTools": "lib/" }
+        "psr-4": { "Jelix\\BuildTools\\": "lib/" }
     },
     "minimum-stability": "dev"
 }
