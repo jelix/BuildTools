@@ -9,41 +9,59 @@ JelixBuildTools is a set of scripts
 
 
 preprocess.php
-   This is a tool to preprocess source file. It generates source file from other source file which
-   contain preprocessing instruction. So you can generate source file according to parameters 
-   (environment variables).
-   see http://developer.jelix.org/wiki/en/preprocessor
+----------------
 
-   usage :
+This is a tool to preprocess source file. It generates source file from other source file which
+contain preprocessing instruction. So you can generate source file according to parameters 
+(environment variables). see http://developer.jelix.org/wiki/en/preprocessor
+
+usage :
+
+```
      php preprocess.php source_file target_file
+```
 
 mkdist.php
-   Copy some source file from a directory to another, according to a "manifest" file. 
-   So it can be used to generate packages.
-   In the manifest, you write the list of files, and indicates where it should be copied,
-   if a preprocessor should be applied etc..
-   see http://developer.jelix.org/wiki/en/mkdist
-   usage :
-      php mkdist.php [-v] manifest_file.mn source_dir target_dir
+-----------
+
+Copy some source file from a directory to another, according to a "manifest" file. 
+So it can be used to generate packages.
+In the manifest, you write the list of files, and indicates where it should be copied,
+if a preprocessor should be applied etc..
+see http://developer.jelix.org/wiki/en/mkdist
+
+usage :
+
+```
+    php mkdist.php [-v] manifest_file.mn source_dir target_dir
+```
 
 mkmanifest.php
-   generate a manifest file
+----------------
+
+generate a manifest file
+
+```
    php mkmanifest.php [-v] source_dir [base_path] file.mn
+```
 
 jBuild.inc.php
-   library to use in a script, to create a build file (a kind of makefile)
+----------------
+
+Library to use in a script, to create a build file (a kind of makefile).
 
 Create a script :
 
 - It should contains first a $BUILD_OPTIONS array, containing all options that can be in the ini file
 - You then should initialize JelixBuildTools:
-    - With Composer, just call in your PHP script :
+
+With Composer, just call in your PHP script:
 
 ```php
 \Jelix\BuildTools\Legacy::inc();
 ```
 
-    - Without Composer, include the lib/jBuild.inc.php file
+Without Composer, include the lib/jBuild.inc.php file.
 
 More documentation later.
 
