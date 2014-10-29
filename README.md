@@ -1,7 +1,7 @@
-jBuildTools:
-=============
+JelixBuildTools
+=================
 
-These are scripts 
+JelixBuildTools is a set of scripts 
 
 - to generate final source file from source file which needs a preprocessing step.
 - to generate package to distribute sources
@@ -31,4 +31,27 @@ mkmanifest.php
    php mkmanifest.php [-v] source_dir [base_path] file.mn
 
 jBuild.inc.php
-   library to use in a script, to create a build file (a makefile like)
+   library to use in a script, to create a build file (a kind of makefile)
+
+Create a script :
+
+- It should contains first a $BUILD_OPTIONS array, containing all options that can be in the ini file
+- You then should initialize JelixBuildTools:
+    - With Composer, just call in your PHP script :
+
+```php
+\Jelix\BuildTools\Legacy::inc();
+```
+
+    - Without Composer, include the lib/jBuild.inc.php file
+
+More documentation later.
+
+History
+--------
+
+This library has just been extract from an other repository, http://github.com/jelix/jelix.
+So its history may contain some cryptic commit comments, that have signification only for the Jelix Framework.
+This library has been used for long time to build packages of Jelix. Its code may appear "old style".
+Futur version of JelixBuildTools will be with namespaced classes and with other modern stuff.
+
