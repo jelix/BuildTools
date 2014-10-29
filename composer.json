@@ -1,0 +1,26 @@
+{
+    "name": "jelix/buildtools",
+    "type": "library",
+    "description": "Tools to build package of a project",
+    "keywords": ["framework"],
+    "homepage": "http://jelix.org",
+    "license": "GPL-2.0",
+    "authors": [
+        {
+            "name": "Laurent Jouanneau",
+            "email": "laurent@jelix.org"
+        }
+    ],
+    "require": {
+        "php": ">=5.3"
+    },
+    "archive": {
+        "exclude": ["/tests"]
+    },
+    "replace": {
+    },
+    "autoload": {
+        "psr-4": { "Jelix\\BuildTools": "lib/" }
+    },
+    "minimum-stability": "dev"
+}

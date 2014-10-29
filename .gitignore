@@ -1,0 +1,6 @@
+TAGS
+.DS_Store
+*.komodoproject
+.komodotools
+*.kdev4
+vendor/
