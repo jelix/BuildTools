@@ -8,8 +8,9 @@
 * @link        http://jelix.org
 * @licence     GNU General Public Licence see LICENCE file or http://www.gnu.org/licenses/gpl.html
 */
+namespace Jelix\BuildTools;
 
-class jManifestReader {
+class Reader {
     protected $ficlist;
     protected $fs;
     
@@ -27,11 +28,11 @@ class jManifestReader {
 
     function __construct($ficlist, $sourcepath, $distpath) {
         $this->ficlist = $ficlist;
-        $this->fs = jManifest::getFileSystem($distpath);
-        $this->preproc = new jPreProcessor();
+        $this->fs = Manifest::getFileSystem($distpath);
+        $this->preproc = new \jPreProcessor();
 
-        $this->sourcedir = jBuildUtils::normalizeDir($sourcepath);
-        $this->distdir =  jBuildUtils::normalizeDir($distpath);
+        $this->sourcedir = \jBuildUtils::normalizeDir($sourcepath);
+        $this->distdir =  \jBuildUtils::normalizeDir($distpath);
 
     }
 
@@ -62,8 +63,8 @@ class jManifestReader {
             try{
                 $content = $this->preproc->parseFile($this->ficlist);
             }
-            catch(Exception $e){
-                throw new Exception ( "cannot preprocess the manifest file ".$this->ficlist." (". $e .")\n");
+            catch(\Exception $e){
+                throw new \Exception ( "cannot preprocess the manifest file ".$this->ficlist." (". $e .")\n");
             }
             $script = explode("\n", $content);
         }
@@ -79,15 +80,15 @@ class jManifestReader {
             if(preg_match(';^(cd|sd|dd|\*|!|\*!|c|\*c|cch)?\s+([a-zA-Z0-9\/.\-_]+)\s*(?:\(([a-zA-Z0-9\%\/.\-_]*)\))?\s*$;m', $line, $m)){
                 if($m[1] == 'dd'){
                     // set destination dir
-                    $currentdestdir = jBuildUtils::normalizeDir($m[2]);
+                    $currentdestdir = \jBuildUtils::normalizeDir($m[2]);
                     $this->fs->createDir($currentdestdir);
                 }elseif($m[1] == 'sd'){
                     // set source dir
-                    $currentsrcdir = jBuildUtils::normalizeDir($m[2]);
+                    $currentsrcdir = \jBuildUtils::normalizeDir($m[2]);
                 }elseif($m[1] == 'cd'){
                     // set source dir and destination dir (same sub path)
-                    $currentsrcdir = jBuildUtils::normalizeDir($m[2]);
-                    $currentdestdir = jBuildUtils::normalizeDir($m[2]);
+                    $currentsrcdir = \jBuildUtils::normalizeDir($m[2]);
+                    $currentdestdir = \jBuildUtils::normalizeDir($m[2]);
                     $this->fs->createDir($currentdestdir);
                 }else{
                     // copy a file
@@ -98,14 +99,14 @@ class jManifestReader {
                     $doCompression = (strpos($m[1],'c') !== false && $m[1] != 'cch') || ($this->stripComment && (strpos($m[1],'!') === false));
 
                     if ($m[2] == '') {
-                        throw new Exception ( $this->ficlist.": file required on line $nbline \n");
+                        throw new \Exception ( $this->ficlist.": file required on line $nbline \n");
                     }
                     if (!isset($m[3]) || $m[3]=='') {
                         $m[3]=$m[2];
                     }
 
                     if ($m[2] == '__ALL__') {
-                        $dir = new DirectoryIterator($this->sourcedir.$currentsrcdir);
+                        $dir = new \DirectoryIterator($this->sourcedir.$currentsrcdir);
                         foreach ($dir as $dirContent) {
                             if (!$dirContent->isFile()) {
                                 continue;
@@ -129,7 +130,7 @@ class jManifestReader {
                 // we ignore comments
             }
             else{
-                throw new Exception ( $this->ficlist.": syntax error on line $nbline \n");
+                throw new \Exception ( $this->ficlist.": syntax error on line $nbline \n");
             }
         }
     }
@@ -147,8 +148,8 @@ class jManifestReader {
             try {
                 $contents = $this->preproc->parseFile($sourcefile);
             }
-            catch(Exception $e) {
-                throw new Exception ( $this->ficlist.": line $nbline, cannot process file ".$m[2]." (". $e .")\n");
+            catch(\Exception $e) {
+                throw new \Exception ( $this->ficlist.": line $nbline, cannot process file ".$m[2]." (". $e .")\n");
             }
 
             if ($doCompression) {
@@ -156,7 +157,7 @@ class jManifestReader {
                     if ($this->verbose) {
                         echo "     strip php comment ";
                     }
-                    $contents = jPhpCommentsRemover::stripComments($contents, $this->indentation);
+                    $contents = \jPhpCommentsRemover::stripComments($contents, $this->indentation);
                     if ($this->verbose) {
                         echo "OK\n";
                     }
@@ -165,7 +166,7 @@ class jManifestReader {
                     if ($this->verbose) {
                         echo "compress javascript file \n";
                     }
-                    $packer = new JavaScriptPacker($contents, 0, true, false);
+                    $packer = new \JavaScriptPacker($contents, 0, true, false);
                     $contents = $packer->pack();
                 }
             }
@@ -177,7 +178,7 @@ class jManifestReader {
                 echo "strip comment in  $sourcefile\tto\t".$this->distdir.$destfile."\n";
             }
             $src = file_get_contents($sourcefile);
-            $this->fs->setFileContent($destfile, jPhpCommentsRemover::stripComments($src, $this->indentation));
+            $this->fs->setFileContent($destfile, \jPhpCommentsRemover::stripComments($src, $this->indentation));
 
         }
         elseif ($doCompression && preg_match("/\.js$/",$destfile)) {
@@ -186,14 +187,14 @@ class jManifestReader {
             }
 
             $script = file_get_contents($sourcefile);
-            $packer = new JavaScriptPacker($script, 0, true, false);
+            $packer = new \JavaScriptPacker($script, 0, true, false);
             $this->fs->setFileContent($destfile, $packer->pack());
 
         }
         elseif($m[1] == 'cch') {
 
             if (strpos($m[3], '%charset%') === false) {
-                throw new Exception ( $this->ficlist.": line $nbline, dest file ".$m[3]." doesn't contains %charset% pattern.\n");
+                throw new \Exception ( $this->ficlist.": line $nbline, dest file ".$m[3]." doesn't contains %charset% pattern.\n");
             }
 
             if ($this->verbose) {
@@ -223,7 +224,7 @@ class jManifestReader {
             }
 
             if (!$this->fs->copyFile($sourcefile, $destfile)) {
-                throw new Exception ( $this->ficlist.": cannot copy file ".$m[2].", line $nbline \n");
+                throw new \Exception ( $this->ficlist.": cannot copy file ".$m[2].", line $nbline \n");
             }
         }
     }
