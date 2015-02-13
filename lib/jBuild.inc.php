@@ -14,7 +14,7 @@ options :
     -D VAR=VALEUR
 */
 
-require_once(__DIR__.'/jManifest.class.php');
+require_once(__DIR__.'/legacy/jManifest.php');
 require_once(__DIR__.'/jCmdUtils.class.php');
 
 class Env {
