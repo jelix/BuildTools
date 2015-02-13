@@ -8,17 +8,13 @@
 * @link        http://jelix.org
 * @licence     GNU General Public Licence see LICENCE file or http://www.gnu.org/licenses/gpl.html
 */
-namespace Jelix\BuildTools;
+namespace Jelix\BuildTools\Manifest;
+use Jelix\BuildTools\FileSystem as Fs;
 
 require_once(__DIR__.'/jPhpCommentsRemover.php');
 require_once(__DIR__.'/preprocessor.lib.php');
 require_once(__DIR__.'/jBuildUtils.lib.php');
 require_once(__DIR__.'/class.JavaScriptPacker.php');
-require_once(__DIR__.'/filesystem/FileSystemInterface.php');
-require_once(__DIR__.'/filesystem/FsOs.php');
-require_once(__DIR__.'/filesystem/FsSvn.php');
-require_once(__DIR__.'/filesystem/FsHg.php');
-require_once(__DIR__.'/filesystem/FsGit.php');
 
 /**
  * jManifest copy files indicated in a 'manifest' file, to a specific directory
@@ -59,22 +55,22 @@ class Manager {
     static public function setFileSystem($fsName) {
         switch ($fsName) {
             case 'svn':
-                self::$fs = new \FsSvn();
+                self::$fs = new Fs\Svn();
                 break;
             case 'git':
-                self::$fs = new \FsGit();
+                self::$fs = new Fs\Git();
                 break;
             case 'hg':
-                self::$fs = new \FsHg();
+                self::$fs = new Fs\Mercurial();
                 break;
             default:
-                self::$fs = new \FsOs();
+                self::$fs = new Fs\Os();
         }
     }
 
     static public function getFileSystem($rootPath) {
         if (self::$fs === null)
-            self::$fs = new \FsOS();
+            self::$fs = new Fs\OS();
         self::$fs->setRootPath($rootPath);
         return self::$fs;
     }

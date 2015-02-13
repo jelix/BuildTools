@@ -3,13 +3,14 @@
 * @package     jBuildTools
 * @author      Laurent Jouanneau
 * @contributor
-* @copyright   2012 Laurent Jouanneau
+* @copyright   2012-2015 Laurent Jouanneau
 * @link        http://jelix.org
 * @licence     GNU General Public Licence see LICENCE file or http://www.gnu.org/licenses/gpl.html
 */
+namespace Jelix\BuildTools\FileSystem;
 
 
-class FsOs implements FileSystemInterface {
+class Os implements FsInterface {
 
     protected $rootPath = '';
 
@@ -18,7 +19,7 @@ class FsOs implements FileSystemInterface {
     }
 
     function createDir($dir) {
-        return jBuildUtils::createDir($this->rootPath.$dir);
+        return \jBuildUtils::createDir($this->rootPath.$dir);
     }
 
     function copyFile($sourcefile, $targetFile) {
@@ -43,7 +44,7 @@ class FsOs implements FileSystemInterface {
             //echo "cannot remove $dir. It doesn't exist.\n";
             return false;
         }
-        jBuildUtils::removeDir($this->rootPath.$dir);
+        \jBuildUtils::removeDir($this->rootPath.$dir);
         return true;
     }
 

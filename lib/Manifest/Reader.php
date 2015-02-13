@@ -3,12 +3,12 @@
 * @package     jBuildTools
 * @author      Laurent Jouanneau
 * @contributor Kévin Lepeltier
-* @copyright   2006-2014 Laurent Jouanneau
+* @copyright   2006-2015 Laurent Jouanneau
 * @copyright   2008 Kévin Lepeltier
 * @link        http://jelix.org
 * @licence     GNU General Public Licence see LICENCE file or http://www.gnu.org/licenses/gpl.html
 */
-namespace Jelix\BuildTools;
+namespace Jelix\BuildTools\Manifest;
 
 class Reader {
     protected $ficlist;
@@ -28,7 +28,7 @@ class Reader {
 
     function __construct($ficlist, $sourcepath, $distpath) {
         $this->ficlist = $ficlist;
-        $this->fs = Manifest::getFileSystem($distpath);
+        $this->fs = Manager::getFileSystem($distpath);
         $this->preproc = new \jPreProcessor();
 
         $this->sourcedir = \jBuildUtils::normalizeDir($sourcepath);

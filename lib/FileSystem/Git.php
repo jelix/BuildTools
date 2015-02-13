@@ -3,13 +3,13 @@
 * @package     jBuildTools
 * @author      Laurent Jouanneau
 * @contributor
-* @copyright   2012 Laurent Jouanneau
+* @copyright   2012-2015 Laurent Jouanneau
 * @link        http://jelix.org
 * @licence     GNU General Public Licence see LICENCE file or http://www.gnu.org/licenses/gpl.html
 */
+namespace Jelix\BuildTools\FileSystem;
 
-
-class FsGit extends FsHg {
+class Git extends Mercurial {
     protected $vcs = 'git';
 
     function removeDir($dir) {
