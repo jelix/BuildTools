@@ -1,8 +1,15 @@
 <?php
+/**
+* @package     jBuildTools
+* @author      Laurent Jouanneau
+* @copyright   2014-2015 Laurent Jouanneau
+* @link        http://jelix.org
+* @licence     GNU General Public Licence see LICENCE file or http://www.gnu.org/licenses/gpl.html
+*/
+namespace Jelix\BuildTools\Manifest;
 
 
-
-class ManifestParser {
+class Modifier {
 
     const COMMENT=1;
     const DIR=2;
