@@ -156,7 +156,7 @@ class PreProcTestCase extends UnitTestCase {
     }
 
     function testSimple(){
-      $proc = new jPreProcessor();
+      $proc = new \Jelix\BuildTools\PreProcessor\PreProcessor();
       foreach($this->testcase as $source=>$datas){
          foreach($datas as $result=>$vars){
            $proc->setVars($vars);
@@ -169,7 +169,7 @@ class PreProcTestCase extends UnitTestCase {
     }
 
     function testSimple2(){
-      $proc = new jPreProcessor();
+      $proc = new \Jelix\BuildTools\PreProcessor\PreProcessor();
       foreach($this->testcase2 as $source=>$datas){
          foreach($datas as $result=>$vars){
            $proc->setVars($vars);
@@ -198,7 +198,7 @@ class PreProcTestCase extends UnitTestCase {
       foreach($this->errortestcase as $source=>$datas){
 
          try{
-           $proc = new jPreProcessor();
+           $proc = new \Jelix\BuildTools\PreProcessor\PreProcessor();
            $res = $proc->parseFile(PP_DATA_DIR.$source);
            $this->fail($source.' : pas d\'erreur !');
          }catch(jExceptionPreProc $e){

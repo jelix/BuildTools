@@ -41,7 +41,7 @@ if($restrictedDirectory !=''){
 }
 try{
 
-    $proc = new jPreProcessor();
+    $proc = new \Jelix\BuildTools\PreProcessor\PreProcessor();
     $proc->setVars($_SERVER);
     $dist = $proc->parseFile($sourcefile);
 

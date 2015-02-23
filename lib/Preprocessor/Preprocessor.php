@@ -3,45 +3,13 @@
 * @package     jBuildTools
 * @author      Laurent Jouanneau
 * @contributor
-* @copyright   2006-2007 Laurent Jouanneau
+* @copyright   2006-2015 Laurent Jouanneau
 * @link        http://www.jelix.org
 * @licence     GNU General Public Licence see LICENCE file or http://www.gnu.org/licenses/gpl.html
 */
+namespace Jelix\BuildTools\PreProcessor;
 
-
-class jExceptionPreProc extends Exception {
-    public $sourceFilename = '';
-    public $sourceLine = 0;
-
-    protected $errmessages = array(
-        'unknown error',
-        'syntax error',
-        '#ifxx statement is missing',
-        '#endif statement is missing',
-        'Cannot include file %s',
-        'Syntax error in the expression : %s',
-        'Syntax error in an expression : "%s" is not allowed'
-    );
-
-    public function __construct($sourceFilename, $sourceLine, $code=0, $param=null) {
-        $this->sourceFilename = $sourceFilename;
-        $this->sourceLine = $sourceLine+1;
-        if($code > count($this->errmessages)) $code = 0;
-        if($param != null){
-            $err = sprintf($this->errmessages[$code], $param);
-        }else{
-            $err = $this->errmessages[$code];
-        }
-        parent::__construct($err, $code);
-    }
-
-    public function __toString() {
-        return 'Error '.$this->code.': '.$this->message .', file source='.$this->sourceFilename. ' line='.$this->sourceLine;
-    }
-}
-
-
-class jPreProcessor{
+class PreProcessor {
     private $_variables =array();
     private $_savedVariables;
     private $_blockstack = array();
@@ -149,7 +117,7 @@ class jPreProcessor{
                     case 'elifdef':
                         $end = array_pop($this->_blockstack);
                         if(!($end & self::BLOCK_IF)){
-                            throw new jExceptionPreProc($filename,$nb,self::ERR_IF_MISSING);
+                            throw new Exception($filename,$nb,self::ERR_IF_MISSING);
                         }
                         if(end($this->_blockstack) &  self::BLOCK_NO){
                             array_push($this->_blockstack, self::BLOCK_IF_NO);
@@ -213,7 +181,7 @@ class jPreProcessor{
             }elseif(preg_match('/^\#elseif\s(.*)$/m',$sline,$m)){
                 $end = array_pop($this->_blockstack);
                 if(!($end & self::BLOCK_IF)){
-                    throw new jExceptionPreProc($filename,$nb,self::ERR_IF_MISSING);
+                    throw new Exception($filename,$nb,self::ERR_IF_MISSING);
                 }
                 if(end($this->_blockstack) &  self::BLOCK_NO){
                     array_push($this->_blockstack, self::BLOCK_IF_NO);
@@ -232,7 +200,7 @@ class jPreProcessor{
                 if($m[1] == 'endif'){
                     $end = array_pop($this->_blockstack);
                     if(!( $end & self::BLOCK_IF || $end & self::BLOCK_ELSE)){
-                        throw new jExceptionPreProc($filename,$nb,self::ERR_IF_MISSING);
+                        throw new Exception($filename,$nb,self::ERR_IF_MISSING);
                     }
                     $tline=false;
                 }elseif($m[1]=='else'){
@@ -250,7 +218,7 @@ class jPreProcessor{
                         }
 
                     }else{
-                        throw new jExceptionPreProc($filename,$nb,self::ERR_IF_MISSING);
+                        throw new Exception($filename,$nb,self::ERR_IF_MISSING);
                     }
                     $tline=false;
                 }
@@ -290,7 +258,7 @@ class jPreProcessor{
                         $tline = substr($sline,1);
                     }
                 }else{
-                    throw new jExceptionPreProc($filename,$nb,self::ERR_SYNTAX);
+                    throw new Exception($filename,$nb,self::ERR_SYNTAX);
                 }
             }else{
                 if(!$isOpen){
@@ -306,7 +274,7 @@ class jPreProcessor{
         }
 
         if(count($this->_blockstack))
-            throw new jExceptionPreProc($filename,$nb,self::ERR_ENDIF_MISSING);
+            throw new Exception($filename,$nb,self::ERR_ENDIF_MISSING);
 
         if($this->_doSaveVariables)
             $this->_variables = $this->_savedVariables;
@@ -328,9 +296,9 @@ class jPreProcessor{
         foreach($arr as $k=>$c){
             if(is_array($c)){
                 if($c[0] == T_OPEN_TAG){
-                    if($k != 0) throw new jExceptionPreProc($filename,$nb,self::ERR_EXPR_SYNTAX_TOK, $c[1]);
+                    if($k != 0) throw new Exception($filename,$nb,self::ERR_EXPR_SYNTAX_TOK, $c[1]);
                 }elseif($c[0] == T_CLOSE_TAG){
-                    if($k != count($arr) -1) throw new jExceptionPreProc($filename,$nb,self::ERR_EXPR_SYNTAX_TOK, $c[1]);
+                    if($k != count($arr) -1) throw new Exception($filename,$nb,self::ERR_EXPR_SYNTAX_TOK, $c[1]);
                 }elseif($c[0] == T_STRING){
                     if(isset($this->_variables[$c[1]]))
                         $expr.='$this->_variables[\''.$c[1].'\']';
@@ -339,13 +307,13 @@ class jPreProcessor{
                 }elseif(in_array($c[0], $this->authorizedToken)){
                     $expr .= $c[1];
                 }else{
-                    throw new jExceptionPreProc($filename,$nb,self::ERR_EXPR_SYNTAX_TOK, $c[1]);
+                    throw new Exception($filename,$nb,self::ERR_EXPR_SYNTAX_TOK, $c[1]);
                 }
             }else{
                 if(in_array($c, $this->authorizedChar)){
                     $expr .= $c;
                 }else{
-                    throw new jExceptionPreProc($filename,$nb,self::ERR_EXPR_SYNTAX_TOK, $c);
+                    throw new Exception($filename,$nb,self::ERR_EXPR_SYNTAX_TOK, $c);
                 }
             }
         }
@@ -353,7 +321,7 @@ class jPreProcessor{
         $val = null;
 
         if(false === @eval('$val='.$expr.';')){
-            throw new jExceptionPreProc($filename,$nb,self::ERR_EXPR_SYNTAX, $expression);
+            throw new Exception($filename,$nb,self::ERR_EXPR_SYNTAX, $expression);
         }else{
             return $val;
         }
@@ -363,7 +331,7 @@ class jPreProcessor{
         if(!($path[0] == '/' || preg_match('/^\w\:\\.+$/',$path))){
             $path = realpath(dirname($currentFilename).'/'.$path);
             if($path == ''){
-                throw new jExceptionPreProc($currentFilename, $currentLine, self::ERR_INVALID_FILENAME, $path);
+                throw new Exception($currentFilename, $currentLine, self::ERR_INVALID_FILENAME, $path);
             }
         }
         if(file_exists($path) && !is_dir($path)){
@@ -371,7 +339,7 @@ class jPreProcessor{
                 $tline = file_get_contents($path);  
             }
             else {
-                $preproc = new jPreProcessor();
+                $preproc = new PreProcessor();
                 $preproc->_doSaveVariables = false;
                 $preproc->setVars($this->_variables);
                 $tline = $preproc->parseFile($path);
@@ -379,7 +347,7 @@ class jPreProcessor{
                 $preproc = null;
             }
         }else{
-            throw new jExceptionPreProc($currentFilename, $currentLine, self::ERR_INVALID_FILENAME, $path);
+            throw new Exception($currentFilename, $currentLine, self::ERR_INVALID_FILENAME, $path);
         }
         
         if (count($options))
@@ -411,7 +379,7 @@ class jPreProcessor{
                     $content = base64_encode($content);
                     break;
                 case 'jspacker':
-                    $packer = new JavaScriptPacker($content, 0, true, false);
+                    $packer = new \JavaScriptPacker($content, 0, true, false);
                     $content = $packer->pack();
                     break;
                 case 'addquote':

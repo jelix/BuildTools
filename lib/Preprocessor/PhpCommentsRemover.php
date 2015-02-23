@@ -3,13 +3,14 @@
 * @package     jBuildTools
 * @author      Laurent Jouanneau
 * @contributor Kévin Lepeltier
-* @copyright   2006-2014 Laurent Jouanneau
+* @copyright   2006-2015 Laurent Jouanneau
 * @copyright   2008 Kévin Lepeltier
 * @link        http://jelix.org
 * @licence     GNU General Public Licence see LICENCE file or http://www.gnu.org/licenses/gpl.html
 */
+namespace Jelix\BuildTools\Preprocessor;
 
-class jPhpCommentsRemover {
+class PhpCommentsRemover {
     
     static protected $indentation = 4;
     

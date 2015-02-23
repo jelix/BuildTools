@@ -29,7 +29,7 @@ class Reader {
     function __construct($ficlist, $sourcepath, $distpath) {
         $this->ficlist = $ficlist;
         $this->fs = Manager::getFileSystem($distpath);
-        $this->preproc = new \jPreProcessor();
+        $this->preproc = new \Jelix\BuildTools\PreProcessor\PreProcessor();
 
         $this->sourcedir = \jBuildUtils::normalizeDir($sourcepath);
         $this->distdir =  \jBuildUtils::normalizeDir($distpath);
@@ -157,7 +157,7 @@ class Reader {
                     if ($this->verbose) {
                         echo "     strip php comment ";
                     }
-                    $contents = \jPhpCommentsRemover::stripComments($contents, $this->indentation);
+                    $contents = \Jelix\BuildTools\Preprocessor\PhpCommentsRemover::stripComments($contents, $this->indentation);
                     if ($this->verbose) {
                         echo "OK\n";
                     }
@@ -178,7 +178,7 @@ class Reader {
                 echo "strip comment in  $sourcefile\tto\t".$this->distdir.$destfile."\n";
             }
             $src = file_get_contents($sourcefile);
-            $this->fs->setFileContent($destfile, \jPhpCommentsRemover::stripComments($src, $this->indentation));
+            $this->fs->setFileContent($destfile, \Jelix\BuildTools\Preprocessor\PhpCommentsRemover::stripComments($src, $this->indentation));
 
         }
         elseif ($doCompression && preg_match("/\.js$/",$destfile)) {

@@ -11,8 +11,6 @@
 namespace Jelix\BuildTools\Manifest;
 use Jelix\BuildTools\FileSystem as Fs;
 
-require_once(__DIR__.'/jPhpCommentsRemover.php');
-require_once(__DIR__.'/preprocessor.lib.php');
 require_once(__DIR__.'/jBuildUtils.lib.php');
 require_once(__DIR__.'/class.JavaScriptPacker.php');
 
