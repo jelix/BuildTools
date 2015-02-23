@@ -26,12 +26,17 @@ class Autoloader {
         "Jelix\\BuildTools\\Cli\\Params"            => "Cli/Params.php",
         "Jelix\\BuildTools\\Cli\\Environment"       => "Cli/Environment.php",
         //"Jelix\\BuildTools\\\\" => ".php",
+        
+        // legacy classes
         "jManifest" => "legacy/jManifest.php",
         "ManifestParser" => "legacy/ManifestParser.php",
         "JavaScriptPacker" => "class.JavaScriptPacker.php",
         "jCmdUtils" => "legacy/jCmdUtils.php",
         "jBuildUtils" => "legacy/jBuildUtils.php",
-        "Env" => "legacy/Env.php"
+        "Env" => "legacy/Env.php",
+        "Subversion" => "legacy/Subversion.php",
+        "Mercurial" => "legacy/Mercurial.php",
+        "Git" => "legacy/Git.php",
     );
 
     static function loadClass($class) {

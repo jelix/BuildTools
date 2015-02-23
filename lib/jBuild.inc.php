@@ -18,50 +18,6 @@ require_once(__DIR__.'/autoloader.php');
 
 use \Jelix\BuildTools\Cli\Environment as ENV;
 
-
-class Subversion {
-    static public function revision($path='.'){
-        $path = \Jelix\BuildTools\FileSystem\DirUtils::normalizeDir($path);
-        $rev=-1;
-        if(file_exists($path.'.svn/entries')){
-            $rev=`svnversion $path --no-newline`;
-            if(preg_match("/(\d+)[MS]+/",$rev, $m))
-                $rev=$m[1];
-        }
-        return $rev;
-    }
-}
-
-class Mercurial {
-    static public function revision($path='.') {
-        $path = \Jelix\BuildTools\FileSystem\DirUtils::normalizeDir($path);
-        $rev=-1;
-        if(file_exists($path.'.hg')){
-            $rev=`hg tip --template "{rev}" -R $path`;
-            if(preg_match("/(\d+)/",$rev, $m))
-                $rev=$m[1];
-        }
-        return $rev;
-        
-        
-    }
-}
-
-class Git {
-    static public function revision($path='.') {
-        $path = \Jelix\BuildTools\FileSystem\DirUtils::normalizeDir($path);
-        $rev=-1;
-        if(file_exists($path.'.git')){
-            $wd = getcwd();
-            chdir($path);
-            $rev = intval(`git rev-list HEAD --count`);
-            chdir($wd);
-        }
-        return $rev;
-    }
-}
-
-
 function init(){
 
     $sws = array('-v'=>false, '-h'=>false, '-ini'=>false, '-D'=>2);
@@ -69,11 +25,11 @@ function init(){
 
     list($switches, $parameters) = \Jelix\BuildTools\Cli\Params::getOptionsAndParams($_SERVER['argv'], $sws, $params);
 
-    if(isset($parameters['ini'])){
+    if (isset($parameters['ini'])) {
         ENV::addIni($parameters['ini']);
     }
 
-    if(isset($switches['-D'])){
+    if (isset($switches['-D'])) {
         foreach($switches['-D'] as $var){
             if(preg_match("/^(\w+)=(.*)$/",$var,$m)){
                 ENV::set($m[1],$m[2]);
@@ -81,15 +37,15 @@ function init(){
                 throw new Exception('bad syntax for -D option  :'.$var."\n");
         }
     }
-    if(isset($switches['-v'])){
+    if (isset($switches['-v'])) {
         ENV::set('VERBOSE_MODE',true);
     }
-    if(isset($switches['-h'])){
+    if (isset($switches['-h'])) {
         echo ENV::help();
         exit(0);
     }
 
-    if(isset($switches['-ini'])){
+    if (isset($switches['-ini'])) {
         echo ENV::getIniContent();
         exit(0);
     }
@@ -107,15 +63,17 @@ function debugVars(){
 }
 
 try{
-    if(!isset($GLOBALS['BUILD_OPTIONS']))
+    if(!isset($GLOBALS['BUILD_OPTIONS'])) {
         throw new Exception('$BUILD_OPTIONS variable is missing in your build file');
+    }
 
-    $GLOBALS['BUILD_OPTIONS']['VERBOSE_MODE']=array("",false);
+    $GLOBALS['BUILD_OPTIONS']['VERBOSE_MODE'] = array("",false);
     ENV::init($GLOBALS['BUILD_OPTIONS']);
 
     init();
 
-}catch(Exception $e){
+}
+catch(Exception $e){
     echo "\n\njBuildTools error : " , $e->getMessage(),"\n";
     echo "  options :  [-vh] [-D foo=bar]* file.ini
       -v  : verbose mode
@@ -125,6 +83,3 @@ try{
 
     exit(1);
 }
-
-
-?>

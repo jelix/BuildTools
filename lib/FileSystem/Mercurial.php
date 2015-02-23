@@ -16,4 +16,16 @@ class Mercurial extends Subversion {
     function createDir($dir) {
         return DirUtils::createDir($this->rootPath.$dir);
     }
+
+    static public function revision($path='.') {
+        $path = DirUtils::normalizeDir($path);
+        $rev=-1;
+        if (file_exists($path.'.hg')) {
+            $rev = `hg tip --template "{rev}" -R $path`;
+            if (preg_match("/(\d+)/",$rev, $m)) {
+                $rev = $m[1];
+            }
+        }
+        return $rev;
+    }
 }

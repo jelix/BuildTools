@@ -58,5 +58,17 @@ class Subversion extends Os {
         if (file_exists($this->rootPath.$dir))
             $this->launchCommand("rm $dir");
     }
+
+    static public function revision($path='.'){
+        $path = DirUtils::normalizeDir($path);
+        $rev=-1;
+        if (file_exists($path.'.svn/entries')) {
+            $rev=`svnversion $path --no-newline`;
+            if (preg_match("/(\d+)[MS]+/",$rev, $m)) {
+                $rev = $m[1];
+            }
+        }
+        return $rev;
+    }
 }
 

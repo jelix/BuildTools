@@ -53,5 +53,12 @@ interface FsInterface {
      * @return boolean true if it has been removed
      */
     function removeDir($dir);
+
+    /**
+     * return revision of the files inside the given path.
+     * Only for versionning file system.
+     * @return string  empty string if irrelevant
+     */
+    static public function revision($path='.');
 }
 

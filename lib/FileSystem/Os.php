@@ -48,5 +48,8 @@ class Os implements FsInterface {
         return true;
     }
 
+    static public function revision($path='.'){
+        return '';
+    }
 }
 

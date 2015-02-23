@@ -18,4 +18,16 @@ class Git extends Mercurial {
         }
         return false;
     }
+
+    static public function revision($path='.') {
+        $path = DirUtils::normalizeDir($path);
+        $rev = -1;
+        if (file_exists($path.'.git')) {
+            $wd = getcwd();
+            chdir($path);
+            $rev = intval(`git rev-list HEAD --count`);
+            chdir($wd);
+        }
+        return $rev;
+    }
 }
