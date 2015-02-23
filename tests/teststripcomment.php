@@ -9,20 +9,15 @@
 * @licence     GNU General Public Licence see LICENCE file or http://www.gnu.org/licenses/gpl.html
 */
 
+define('SC_DATA_DIR',__DIR__.'/scdata/');
 
-require_once(__DIR__.'/../../lib/simpletest/unit_tester.php');
-require_once(__DIR__.'/../../lib/simpletest/reporter.php');
-require_once(__DIR__.'/../../lib/diff/difflib.php');
+class StripCommentTestCase extends PHPUnit_Framework_TestCase {
 
-define('SC_DATA_DIR','scdata/');
-
-
-
-class StripCommentTestCase extends UnitTestCase {
-
-    protected $testcase = array(
-      'source1.txt'=>'result1.txt',
-    );
+    public function providerTestFiles() {
+        return array(
+            array('source1.txt', 'result1.txt'),
+        );
+    }
 
     function setUp() {
     }
@@ -31,36 +26,15 @@ class StripCommentTestCase extends UnitTestCase {
 
     }
 
-    function testSimple(){
-        foreach($this->testcase as $source=>$result){
-            $res = jPhpCommentsRemover::stripComments(file_get_contents(SC_DATA_DIR.$source));
-            //if (!file_exists(SC_DATA_DIR.$result))
-            //    file_put_contents(SC_DATA_DIR.$result,$res);
+    /**
+     * @dataProvider providerTestFiles
+     */
+    function testSimple($source, $result){
+        $res = \Jelix\BuildTools\PreProcessor\PhpCommentsRemover::stripComments(file_get_contents(SC_DATA_DIR.$source));
+        //if (!file_exists(SC_DATA_DIR.$result))
+        //    file_put_contents(SC_DATA_DIR.$result,$res);
+        $expected = file_get_contents(SC_DATA_DIR.$result);
 
-            $expected = file_get_contents(SC_DATA_DIR.$result);
-
-            if(!$this->assertEqual($res, $expected, "test $source / $result ")){
-                $this->showDiff($expected, $res);
-            }
-        }
+        $this->assertEquals($expected, $res, "test $source / $result ");
     }
-
-
-    protected function showDiff($str1, $str2){
-        $diff = new Diff(explode("\n",$str1),explode("\n",$str2));
-
-        if($diff->isEmpty()) {
-            $this->fail("No difference ???");
-        }else{
-            $fmt = new UnifiedDiffFormatter();
-            $this->fail($fmt->format($diff));
-        }
-    }
-
 }
-
-
-$test = new StripCommentTestCase();
-$test->run(new TextReporter());
-
-?>

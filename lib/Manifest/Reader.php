@@ -158,7 +158,7 @@ class Reader {
                     if ($this->verbose) {
                         echo "     strip php comment ";
                     }
-                    $contents = \Jelix\BuildTools\Preprocessor\PhpCommentsRemover::stripComments($contents, $this->indentation);
+                    $contents = \Jelix\BuildTools\PreProcessor\PhpCommentsRemover::stripComments($contents, $this->indentation);
                     if ($this->verbose) {
                         echo "OK\n";
                     }
@@ -179,7 +179,7 @@ class Reader {
                 echo "strip comment in  $sourcefile\tto\t".$this->distdir.$destfile."\n";
             }
             $src = file_get_contents($sourcefile);
-            $this->fs->setFileContent($destfile, \Jelix\BuildTools\Preprocessor\PhpCommentsRemover::stripComments($src, $this->indentation));
+            $this->fs->setFileContent($destfile, \Jelix\BuildTools\PreProcessor\PhpCommentsRemover::stripComments($src, $this->indentation));
 
         }
         elseif ($doCompression && preg_match("/\.js$/",$destfile)) {

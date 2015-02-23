@@ -8,7 +8,7 @@
 * @link        http://jelix.org
 * @licence     GNU General Public Licence see LICENCE file or http://www.gnu.org/licenses/gpl.html
 */
-namespace Jelix\BuildTools\Preprocessor;
+namespace Jelix\BuildTools\PreProcessor;
 
 class PhpCommentsRemover {
     

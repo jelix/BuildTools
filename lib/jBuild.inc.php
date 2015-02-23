@@ -13,8 +13,9 @@ options :
     -i fichier.ini
     -D VAR=VALUE
 */
-
-require_once(__DIR__.'/autoloader.php');
+if (!class_exists('Composer\\Autoload\\ClassLoader', false)) {
+    require_once(__DIR__.'/autoloader.php');    
+}
 
 use \Jelix\BuildTools\Cli\Environment as ENV;
 
