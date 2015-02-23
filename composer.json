@@ -23,7 +23,8 @@
     "replace": {
     },
     "autoload": {
-        "psr-4": { "Jelix\\BuildTools\\": "lib/" }
+        "psr-4": { "Jelix\\BuildTools\\": "lib/" },
+        "classmap": ["lib/class.JavascriptPacker.php"]
     },
     "minimum-stability": "dev"
 }
