@@ -14,6 +14,6 @@ class Mercurial extends Svn {
     protected $vcs = 'hg';
 
     function createDir($dir) {
-        return \jBuildUtils::createDir($this->rootPath.$dir);
+        return DirUtils::createDir($this->rootPath.$dir);
     }
 }

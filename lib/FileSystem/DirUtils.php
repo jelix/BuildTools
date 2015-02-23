@@ -1,15 +1,13 @@
 <?php
 /**
-* @package     jBuildTools
 * @author      Laurent Jouanneau
-* @contributor
-* @copyright   2006-2012 Laurent Jouanneau
+* @copyright   2006-2015 Laurent Jouanneau
 * @link        http://jelix.org
 * @licence     GNU General Public Licence see LICENCE file or http://www.gnu.org/licenses/gpl.html
 */
+namespace Jelix\BuildTools\FileSystem;
 
-
-class jBuildUtils {
+class DirUtils {
 
     /**
      * create a directory
@@ -39,9 +37,9 @@ class jBuildUtils {
     public static function removeDir($path, $deleteParent=true) {
 
         if($path == '' || $path == '/' || $path == DIRECTORY_SEPARATOR)
-            throw new Exception('The root cannot be removed !!'); //see ticket #840
+            throw new \Exception('The root cannot be removed !!'); //see ticket #840
 
-        $dir = new DirectoryIterator($path);
+        $dir = new \DirectoryIterator($path);
         foreach ($dir as $dirContent) {
             // file deletion
             if ($dirContent->isFile() || $dirContent->isLink()) {

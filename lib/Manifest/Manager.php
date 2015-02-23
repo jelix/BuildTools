@@ -11,9 +11,6 @@
 namespace Jelix\BuildTools\Manifest;
 use Jelix\BuildTools\FileSystem as Fs;
 
-require_once(__DIR__.'/jBuildUtils.lib.php');
-require_once(__DIR__.'/class.JavaScriptPacker.php');
-
 /**
  * jManifest copy files indicated in a 'manifest' file, to a specific directory
  * in order to generate a set of PHP files ready to be executed. It can do
@@ -96,7 +93,7 @@ class Manager {
      * @param string $distpath directory were files are copied
      */
     static public function removeFiles($ficlist, $distpath) {
-        $distdir =  \jBuildUtils::normalizeDir($distpath);
+        $distdir =  Fs\DirUtils::normalizeDir($distpath);
 
         $fs = self::getFileSystem($distdir);
 
@@ -108,10 +105,10 @@ class Manager {
             $nbline++;
             if (preg_match(';^(cd|rmd)?\s+([a-zA-Z0-9\/.\-_]+)\s*$;m', $line, $m)) {
                 if($m[1] == 'rmd'){
-                    $fs->removeDir(\jBuildUtils::normalizeDir($m[2]));
+                    $fs->removeDir(Fs\DirUtils::normalizeDir($m[2]));
                 }
                 elseif($m[1] == 'cd') {
-                    $currentdestdir = \jBuildUtils::normalizeDir($m[2]);
+                    $currentdestdir = Fs\DirUtils::normalizeDir($m[2]);
                 }
                 else {
 

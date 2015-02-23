@@ -19,6 +19,7 @@ class Autoloader {
         "Jelix\\BuildTools\\FileSystem\\Mercurial"  => "FileSystem/Mercurial.php",
         "Jelix\\BuildTools\\FileSystem\\Os"         => "FileSystem/Os.php",
         "Jelix\\BuildTools\\FileSystem\\Svn"        => "FileSystem/Svn.php",
+        "Jelix\\BuildTools\\FileSystem\\DirUtils"   => "FileSystem/DirUtils.php",
         "Jelix\\BuildTools\\Preprocessor\\Exception"        => "Preprocessor/Exception.php",
         "Jelix\\BuildTools\\Preprocessor\\PhpCommentsRemover" => "Preprocessor/PhpCommentsRemover.php",
         "Jelix\\BuildTools\\Preprocessor\\Preprocessor"     => "Preprocessor/Preprocessor.php",
@@ -27,7 +28,7 @@ class Autoloader {
         "ManifestParser" => "legacy/ManifestParser.php",
         "JavaScriptPacker" => "class.JavaScriptPacker.php",
         "jCmdUtils" => "jCmdUtils.class.php",
-        "jBuildUtils" => "jBuildUtils.lib.php"
+        "jBuildUtils" => "legacy/jBuildUtils.php"
     );
 
     static function loadClass($class) {

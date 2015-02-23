@@ -49,7 +49,7 @@ try{
   exit(1);
 }
 
-jBuildUtils::createDir(dirname($distfile));
+\Jelix\BuildTools\FileSystem\DirUtils::createDir(dirname($distfile));
 file_put_contents($distfile, $dist);
 exit(0);
 

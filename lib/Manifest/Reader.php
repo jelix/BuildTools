@@ -9,6 +9,7 @@
 * @licence     GNU General Public Licence see LICENCE file or http://www.gnu.org/licenses/gpl.html
 */
 namespace Jelix\BuildTools\Manifest;
+use \Jelix\BuildTools\FileSystem\DirUtils as DirUtils;
 
 class Reader {
     protected $ficlist;
@@ -31,8 +32,8 @@ class Reader {
         $this->fs = Manager::getFileSystem($distpath);
         $this->preproc = new \Jelix\BuildTools\PreProcessor\PreProcessor();
 
-        $this->sourcedir = \jBuildUtils::normalizeDir($sourcepath);
-        $this->distdir =  \jBuildUtils::normalizeDir($distpath);
+        $this->sourcedir = DirUtils::normalizeDir($sourcepath);
+        $this->distdir =  DirUtils::normalizeDir($distpath);
 
     }
 
@@ -80,15 +81,15 @@ class Reader {
             if(preg_match(';^(cd|sd|dd|\*|!|\*!|c|\*c|cch)?\s+([a-zA-Z0-9\/.\-_]+)\s*(?:\(([a-zA-Z0-9\%\/.\-_]*)\))?\s*$;m', $line, $m)){
                 if($m[1] == 'dd'){
                     // set destination dir
-                    $currentdestdir = \jBuildUtils::normalizeDir($m[2]);
+                    $currentdestdir = DirUtils::normalizeDir($m[2]);
                     $this->fs->createDir($currentdestdir);
                 }elseif($m[1] == 'sd'){
                     // set source dir
-                    $currentsrcdir = \jBuildUtils::normalizeDir($m[2]);
+                    $currentsrcdir = DirUtils::normalizeDir($m[2]);
                 }elseif($m[1] == 'cd'){
                     // set source dir and destination dir (same sub path)
-                    $currentsrcdir = \jBuildUtils::normalizeDir($m[2]);
-                    $currentdestdir = \jBuildUtils::normalizeDir($m[2]);
+                    $currentsrcdir = DirUtils::normalizeDir($m[2]);
+                    $currentdestdir = DirUtils::normalizeDir($m[2]);
                     $this->fs->createDir($currentdestdir);
                 }else{
                     // copy a file

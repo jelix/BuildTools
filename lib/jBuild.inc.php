@@ -190,7 +190,7 @@ class Env {
 
 class Subversion {
     static public function revision($path='.'){
-        $path=jBuildUtils::normalizeDir($path);
+        $path = \Jelix\BuildTools\FileSystem\DirUtils::normalizeDir($path);
         $rev=-1;
         if(file_exists($path.'.svn/entries')){
             $rev=`svnversion $path --no-newline`;
@@ -203,7 +203,7 @@ class Subversion {
 
 class Mercurial {
     static public function revision($path='.') {
-        $path=jBuildUtils::normalizeDir($path);
+        $path = \Jelix\BuildTools\FileSystem\DirUtils::normalizeDir($path);
         $rev=-1;
         if(file_exists($path.'.hg')){
             $rev=`hg tip --template "{rev}" -R $path`;
@@ -218,7 +218,7 @@ class Mercurial {
 
 class Git {
     static public function revision($path='.') {
-        $path=jBuildUtils::normalizeDir($path);
+        $path = \Jelix\BuildTools\FileSystem\DirUtils::normalizeDir($path);
         $rev=-1;
         if(file_exists($path.'.git')){
             $wd = getcwd();

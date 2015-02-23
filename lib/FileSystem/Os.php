@@ -19,7 +19,7 @@ class Os implements FsInterface {
     }
 
     function createDir($dir) {
-        return \jBuildUtils::createDir($this->rootPath.$dir);
+        return DirUtils::createDir($this->rootPath.$dir);
     }
 
     function copyFile($sourcefile, $targetFile) {
@@ -44,7 +44,7 @@ class Os implements FsInterface {
             //echo "cannot remove $dir. It doesn't exist.\n";
             return false;
         }
-        \jBuildUtils::removeDir($this->rootPath.$dir);
+        DirUtils::removeDir($this->rootPath.$dir);
         return true;
     }
 
