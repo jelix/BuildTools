@@ -1,21 +1,17 @@
 <?php
 /**
-* @package    jelix
-* @subpackage utils
-* @version    $Id:$
 * @author     Loic Mathaud
 * @contributor Laurent Jouanneau
-* @copyright  2006 Loic Mathaud
+* @copyright  2006 Loic Mathaud, 2015 Laurent Jouanneau
 * @link        http://www.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
+namespace Jelix\BuildTools\Cli;
 
 /**
  *
- * @package    jelix
- * @subpackage utils
  */
-class jCmdUtils {
+class Params {
 
     private function __construct() {}
 
@@ -55,14 +51,14 @@ class jCmdUtils {
                         else
                             $switches[$sw] = array_shift($argv);
                     } else {
-                        throw new Exception("Error: value missing for the '".$argv[0]."' option\n");
+                        throw new \Exception("Error: value missing for the '".$argv[0]."' option\n");
                     }
                 } else {
                     $sw = array_shift($argv);
                     $switches[$sw] = true;
                 }
             } else {
-                throw new Exception("Error: unknown option '".$argv[0]."' \n");
+                throw new \Exception("Error: unknown option '".$argv[0]."' \n");
             }
         }
 
@@ -70,7 +66,7 @@ class jCmdUtils {
         foreach ($params as $pname => $needed) {
             if (count($argv) == 0) {
                 if ($needed) {
-                    throw new Exception("Error: '$pname' parameter missing\n");
+                    throw new \Exception("Error: '$pname' parameter missing\n");
                 } else {
                     break;
                 }
@@ -80,12 +76,10 @@ class jCmdUtils {
 
         if (count($argv)) {
 
-            throw new Exception("Error: two many parameters\n");
+            throw new \Exception("Error: two many parameters\n");
         }
 
         return array($switches , $parameters);
     }
-
 }
 
-?>

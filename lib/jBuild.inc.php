@@ -236,7 +236,7 @@ function init(){
     $sws = array('-v'=>false, '-h'=>false, '-ini'=>false, '-D'=>2);
     $params = array('ini'=>false);
 
-    list($switches, $parameters) = jCmdUtils::getOptionsAndParams($_SERVER['argv'], $sws, $params);
+    list($switches, $parameters) = \Jelix\BuildTools\Cli\Params::getOptionsAndParams($_SERVER['argv'], $sws, $params);
 
     if(isset($parameters['ini'])){
         ENV::addIni($parameters['ini']);

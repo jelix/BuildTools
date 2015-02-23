@@ -18,7 +18,7 @@ try{
     $sws = array('-n'=>false);
     $params = array('dirpath'=>true);
 
-    list($switches, $parameters) = jCmdUtils::getOptionsAndParams($_SERVER['argv'], $sws, $params);
+    list($switches, $parameters) = \Jelix\BuildTools\Cli\Params::getOptionsAndParams($_SERVER['argv'], $sws, $params);
 
 }catch(Exception $e){
     echo "dos2unix error : " , $e->getMessage(),"\n";
