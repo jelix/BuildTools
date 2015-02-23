@@ -1,7 +1,5 @@
 <?php
-
 /**
-* @package     jBuildTools
 * @author      Laurent Jouanneau
 * @contributor
 * @copyright   2006-2015 Laurent Jouanneau
@@ -89,4 +87,4 @@ if (is_dir($dirpath)) {
 
 echo "\n\nend\n";
 exit(0);
-?>
+

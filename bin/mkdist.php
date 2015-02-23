@@ -1,8 +1,5 @@
 <?php
-
 /**
-* @package     jBuildTools
-* @version     $Id$
 * @author      Laurent Jouanneau
 * @contributor
 * @copyright   2006-2015 Laurent Jouanneau
@@ -38,5 +35,3 @@ try {
     echo $e->getMessage();
     exit(1);
 }
-
-?>

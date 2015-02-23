@@ -1,10 +1,11 @@
 <?php
 /**
 * @author   Laurent Jouanneau
-* @copyright 2014 Laurent Jouanneau
+* @copyright 2015 Laurent Jouanneau
 * @link     http://www.jelix.org
 */
 namespace Jelix\BuildTools;
+
 /**
  * Class to load classes when not using Composer
  */

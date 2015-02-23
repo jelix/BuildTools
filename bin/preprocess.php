@@ -1,8 +1,6 @@
 <?php
 
 /**
-* @package     jBuildTools
-* @version     $Id$
 * @author      Laurent Jouanneau
 * @contributor
 * @copyright   2006-2015 Laurent Jouanneau
@@ -52,5 +50,3 @@ try{
 \Jelix\BuildTools\FileSystem\DirUtils::createDir(dirname($distfile));
 file_put_contents($distfile, $dist);
 exit(0);
-
-?>

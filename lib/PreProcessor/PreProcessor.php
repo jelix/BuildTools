@@ -1,6 +1,5 @@
 <?php
 /**
-* @package     jBuildTools
 * @author      Laurent Jouanneau
 * @contributor
 * @copyright   2006-2015 Laurent Jouanneau

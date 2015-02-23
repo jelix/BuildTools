@@ -1,6 +1,5 @@
 <?php
 /**
-* @package     jBuildTools
 * @author      Laurent Jouanneau
 * @copyright   2014-2015 Laurent Jouanneau
 * @link        http://jelix.org

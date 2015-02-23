@@ -1,10 +1,8 @@
 <?php
-
 /**
-* @package     jBuildTools
 * @author      Laurent Jouanneau
 * @contributor
-* @copyright   2009 Laurent Jouanneau
+* @copyright   2009-2015 Laurent Jouanneau
 * @link        http://jelix.org
 * @licence     GNU General Public Licence see LICENCE file or http://www.gnu.org/licenses/gpl.html
 */
