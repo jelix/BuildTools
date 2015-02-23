@@ -41,7 +41,7 @@ class PhpCommentsRemover {
                         $result.= self::strip_ws($currentWhitespace, $canRemoveNextSpaces);
                         $result.=$token[1];
                         if(!$firstPHPfound) {
-                            $result.= "/* comments & extra-whitespaces have been removed by jBuildTools*/\n";
+                            $result.= "/* comments & extra-whitespaces have been removed by JelixBuildTools*/\n";
                             $firstPHPfound=true;
                         }
                         break;

@@ -1,7 +1,7 @@
 <?php
 
 /**
-* @package     jBuildTools
+* @package     JelixBuildTools
 * @author      Laurent Jouanneau
 * @contributor
 * @copyright   2009 Laurent Jouanneau

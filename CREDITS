@@ -1,12 +1,14 @@
-Credits for jBuildTools
-=======================
+Credits for JelixBuildTools
+===========================
 
 Main developer : Laurent Jouanneau
 
 Contributors: 
 
-Kévin Lepeltier (aka Lipki)
-  - convertion of file to other encoding (cch command in manifests)
+- Loic Mathaud
+- Dominique Papin
+- Kévin Lepeltier (aka Lipki)
+   - convertion of file to other encoding (cch command in manifests)
 
 
 Credits for external tools including in the package
