@@ -9,7 +9,7 @@
 * @licence     GNU General Public Licence see LICENCE file or http://www.gnu.org/licenses/gpl.html
 */
 
-require_once(__DIR__.'/lib/jCmdUtils.class.php');
+require_once(__DIR__.'/lib/autoloader.php');
 
 // arguments :  directory1 [directory2]
 // directory1 : directory path from which we want the list

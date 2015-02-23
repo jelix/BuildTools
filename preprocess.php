@@ -10,8 +10,7 @@
 * @licence     GNU General Public Licence see LICENCE file or http://www.gnu.org/licenses/gpl.html
 */
 
-require_once(__DIR__.'/lib/preprocessor.lib.php');
-require_once(__DIR__.'/lib/jBuildUtils.lib.php');
+require_once(__DIR__.'/lib/autoloader.php');
 
 // arguments :  chemin_source chemin_dist
 

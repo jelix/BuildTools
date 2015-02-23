@@ -11,11 +11,10 @@
 /*
 options :
     -i fichier.ini
-    -D VAR=VALEUR
+    -D VAR=VALUE
 */
 
-require_once(__DIR__.'/legacy/jManifest.php');
-require_once(__DIR__.'/jCmdUtils.class.php');
+require_once(__DIR__.'/autoloader.php');
 
 class Env {
 

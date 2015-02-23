@@ -12,7 +12,7 @@
 
 // arguments :  fichier.lf   chemin_source chemin_dist
 
-require_once(__DIR__.'/vendor/autoload.php');
+require_once(__DIR__.'/lib/autoloader.php');
 
 if($_SERVER['argc'] < 4){
    exit(1);
