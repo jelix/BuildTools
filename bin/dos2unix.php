@@ -4,12 +4,12 @@
 * @package     jBuildTools
 * @author      Laurent Jouanneau
 * @contributor
-* @copyright   2006-2007 Laurent Jouanneau
+* @copyright   2006-2015 Laurent Jouanneau
 * @link        http://www.jelix.org
 * @licence     GNU General Public Licence see LICENCE file or http://www.gnu.org/licenses/gpl.html
 */
 
-require_once(__DIR__.'/lib/autoloader.php');
+require_once(__DIR__.'/../lib/autoloader.php');
 
 // arguments:  directory
 // directory: directory path where the files will be converted

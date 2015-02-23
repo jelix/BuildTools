@@ -5,14 +5,14 @@
 * @version     $Id$
 * @author      Laurent Jouanneau
 * @contributor
-* @copyright   2006 Laurent Jouanneau
+* @copyright   2006-2015 Laurent Jouanneau
 * @link        http://www.jelix.org
 * @licence     GNU General Public Licence see LICENCE file or http://www.gnu.org/licenses/gpl.html
 */
 
 // arguments :  fichier.lf   chemin_source chemin_dist
 
-require_once(__DIR__.'/lib/autoloader.php');
+require_once(__DIR__.'/../lib/autoloader.php');
 
 if($_SERVER['argc'] < 4){
    exit(1);
