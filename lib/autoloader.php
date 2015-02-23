@@ -23,13 +23,15 @@ class Autoloader {
         "Jelix\\BuildTools\\Preprocessor\\Exception"        => "Preprocessor/Exception.php",
         "Jelix\\BuildTools\\Preprocessor\\PhpCommentsRemover" => "Preprocessor/PhpCommentsRemover.php",
         "Jelix\\BuildTools\\Preprocessor\\Preprocessor"     => "Preprocessor/Preprocessor.php",
-        "Jelix\\BuildTools\\Cli\\Params"                => "Cli/Params.php",
+        "Jelix\\BuildTools\\Cli\\Params"            => "Cli/Params.php",
+        "Jelix\\BuildTools\\Cli\\Environment"       => "Cli/Environment.php",
         //"Jelix\\BuildTools\\\\" => ".php",
         "jManifest" => "legacy/jManifest.php",
         "ManifestParser" => "legacy/ManifestParser.php",
         "JavaScriptPacker" => "class.JavaScriptPacker.php",
         "jCmdUtils" => "legacy/jCmdUtils.php",
-        "jBuildUtils" => "legacy/jBuildUtils.php"
+        "jBuildUtils" => "legacy/jBuildUtils.php",
+        "Env" => "legacy/Env.php"
     );
 
     static function loadClass($class) {
