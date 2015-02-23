@@ -18,7 +18,7 @@ class Autoloader {
         "Jelix\\BuildTools\\FileSystem\\Git"        => "FileSystem/Git.php",
         "Jelix\\BuildTools\\FileSystem\\Mercurial"  => "FileSystem/Mercurial.php",
         "Jelix\\BuildTools\\FileSystem\\Os"         => "FileSystem/Os.php",
-        "Jelix\\BuildTools\\FileSystem\\Svn"        => "FileSystem/Svn.php",
+        "Jelix\\BuildTools\\FileSystem\\Subversion"        => "FileSystem/Subversion.php",
         "Jelix\\BuildTools\\FileSystem\\DirUtils"   => "FileSystem/DirUtils.php",
         "Jelix\\BuildTools\\Preprocessor\\Exception"        => "Preprocessor/Exception.php",
         "Jelix\\BuildTools\\Preprocessor\\PhpCommentsRemover" => "Preprocessor/PhpCommentsRemover.php",

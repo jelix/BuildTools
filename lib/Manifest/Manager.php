@@ -49,12 +49,14 @@ class Manager {
 
     static public function setFileSystem($fsName) {
         switch ($fsName) {
+            case 'subversion':
             case 'svn':
-                self::$fs = new Fs\Svn();
+                self::$fs = new Fs\Subversion();
                 break;
             case 'git':
                 self::$fs = new Fs\Git();
                 break;
+            case 'mercurial':
             case 'hg':
                 self::$fs = new Fs\Mercurial();
                 break;

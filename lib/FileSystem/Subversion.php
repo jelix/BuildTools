@@ -10,7 +10,7 @@
 namespace Jelix\BuildTools\FileSystem;
 
 
-class Svn extends Os {
+class Subversion extends Os {
     protected $vcs = 'svn';
 
     protected function launchCommand($cmd) {

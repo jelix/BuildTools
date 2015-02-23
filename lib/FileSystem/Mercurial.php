@@ -10,7 +10,7 @@
 namespace Jelix\BuildTools\FileSystem;
 
 
-class Mercurial extends Svn {
+class Mercurial extends Subversion {
     protected $vcs = 'hg';
 
     function createDir($dir) {
