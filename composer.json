@@ -24,7 +24,7 @@
     },
     "autoload": {
         "psr-4": { "Jelix\\BuildTools\\": "lib/" },
-        "classmap": ["lib/class.JavascriptPacker.php"]
+        "classmap": ["lib/class.JavaScriptPacker.php"]
     },
     "minimum-stability": "dev"
 }
