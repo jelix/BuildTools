@@ -9,7 +9,7 @@
 */
 
 if (!class_exists('Composer\\Autoload\\ClassLoader', false)) {
-    require_once(__DIR__.'/autoloader.php');    
+    require_once(__DIR__.'/../autoloader.php');
 }
 
 if(!isset($GLOBALS['BUILD_OPTIONS'])) {
