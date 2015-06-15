@@ -5,3 +5,4 @@ TAGS
 *.kdev4
 vendor/
 composer.lock
+tests/_result/

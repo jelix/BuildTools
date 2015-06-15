@@ -1,9 +1,10 @@
 <?xml version="1.0"?>
 <phpunit bootstrap="bootstrap.php">
   <testsuites>
-    <testsuite name="Jelix Core">
+    <testsuite name="Build tools">
       <file>testpreprocess.php</file>
       <file>teststripcomment.php</file>
+      <file>testmanifest.php</file>
     </testsuite>
   </testsuites>
 </phpunit>

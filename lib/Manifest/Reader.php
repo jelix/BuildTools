@@ -56,6 +56,11 @@ class Reader {
         $this->indentation = $indent;
     }
 
+    /**
+     * @param array     $preprocvars    list of key/value representing variables for the preprocessor
+     * @param boolean   $preprocmanifest  if true, the manifest file is preprocessed then the manifest
+     *              reader will used the generated manifest file instead of the given manifest file.
+     */
     public function process($preprocvars, $preprocmanifest=false) {
         $this->preprocvars = $preprocvars;
         if ($preprocmanifest) {
@@ -116,6 +121,19 @@ class Reader {
                             $sourcefile = $this->sourcedir.$currentsrcdir.$m[2];
         
                             $this->processFile($sourcefile, $destfile, $nbline, $m, $doPreprocessing, $doCompression);
+                        }
+                    }
+                    else if ($m[2] == '__ALL_RECURSIVELY__') {
+                        $it = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($this->sourcedir.$currentsrcdir));
+                        $it->rewind();
+                        while($it->valid()) {
+                            if (!$it->isDot()) {
+                                $this->fs->createDir($currentdestdir.$it->getSubPath());
+                                $sourcefile = $this->sourcedir.$currentsrcdir.$it->getSubPath().'/'.$it->getBaseName();
+                                $destfile = $currentdestdir.$it->getSubPath().'/'.$it->getBaseName();
+                                $this->processFile($sourcefile, $destfile, $nbline, $m, $doPreprocessing, $doCompression);
+                            }
+                            $it->next();
                         }
                     }
                     else {

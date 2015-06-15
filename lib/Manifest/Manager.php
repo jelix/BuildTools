@@ -65,8 +65,9 @@ class Manager {
     }
 
     static public function getFileSystem($rootPath) {
-        if (self::$fs === null)
-            self::$fs = new Fs\OS();
+        if (self::$fs === null) {
+            self::$fs = new Fs\Os();
+        }
         self::$fs->setRootPath($rootPath);
         return self::$fs;
     }
