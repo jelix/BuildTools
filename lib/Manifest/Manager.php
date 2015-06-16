@@ -1,13 +1,18 @@
 <?php
+
 /**
-* @author      Laurent Jouanneau
-* @contributor Kévin Lepeltier
-* @copyright   2006-2015 Laurent Jouanneau
-* @copyright   2008 Kévin Lepeltier
-* @link        http://jelix.org
-* @licence     GNU General Public Licence see LICENCE file or http://www.gnu.org/licenses/gpl.html
-*/
+ * @author      Laurent Jouanneau
+ * @contributor Kévin Lepeltier
+ *
+ * @copyright   2006-2015 Laurent Jouanneau
+ * @copyright   2008 Kévin Lepeltier
+ *
+ * @link        http://jelix.org
+ * @licence     GNU General Public Licence see LICENCE file or http://www.gnu.org/licenses/gpl.html
+ */
+
 namespace Jelix\BuildTools\Manifest;
+
 use Jelix\BuildTools\FileSystem as Fs;
 
 /**
@@ -20,33 +25,35 @@ use Jelix\BuildTools\FileSystem as Fs;
  * jManifest supports also VCS like Subversion or Mercurial, so when it detect
  * that new files are added, it will call the VCS to add these files in the repository.
  */
-class Manager {
-
+class Manager
+{
     /**
-     * @var boolean true if you want to strip comment and compress whitespaces
+     * @var bool true if you want to strip comment and compress whitespaces
      */
-    static public $stripComment = false;
+    public static $stripComment = false;
 
     /**
-     * @var boolean true if you want more messages during the copy
-    */
-    static public $verbose = false;
+     * @var bool true if you want more messages during the copy
+     */
+    public static $verbose = false;
 
-    static public $sourcePropertiesFilesDefaultCharset = 'utf-8';
+    public static $sourcePropertiesFilesDefaultCharset = 'utf-8';
 
-    static public $targetPropertiesFilesCharset = 'utf-8';
+    public static $targetPropertiesFilesCharset = 'utf-8';
 
     /**
      * when compressing whitespaces, Manager will replace indentation made with spaces
      * by a tab character.
-     * @var integer  the number of spaces for indentation used in your sources
+     *
+     * @var int the number of spaces for indentation used in your sources
      */
-    static public $indentation = 4;
+    public static $indentation = 4;
 
     // the file system object to use
-    static protected $fs = null;
+    protected static $fs = null;
 
-    static public function setFileSystem($fsName) {
+    public static function setFileSystem($fsName)
+    {
         switch ($fsName) {
             case 'subversion':
             case 'svn':
@@ -64,21 +71,25 @@ class Manager {
         }
     }
 
-    static public function getFileSystem($rootPath) {
+    public static function getFileSystem($rootPath)
+    {
         if (self::$fs === null) {
             self::$fs = new Fs\Os();
         }
         self::$fs->setRootPath($rootPath);
+
         return self::$fs;
     }
 
     /**
-     * read the given manifest file and copy files
-     * @param string $ficlist manifest file name
+     * read the given manifest file and copy files.
+     *
+     * @param string $ficlist    manifest file name
      * @param string $sourcepath main directory where it reads files
-     * @param string $distpath main directory were files are copied
+     * @param string $distpath   main directory were files are copied
      */
-    static public function process($ficlist, $sourcepath, $distpath, $preprocvars, $preprocmanifest=false){
+    public static function process($ficlist, $sourcepath, $distpath, $preprocvars, $preprocmanifest = false)
+    {
         $manifest = new Reader($ficlist, $sourcepath, $distpath);
         $manifest->setVerbose(self::$verbose);
         $manifest->setStripComment(self::$stripComment);
@@ -91,11 +102,13 @@ class Manager {
     /**
      * delete files indicated in the given manifest file, from the indicated target
      * directory.
-     * @param string $ficlist manifest file name
+     *
+     * @param string $ficlist  manifest file name
      * @param string $distpath directory were files are copied
      */
-    static public function removeFiles($ficlist, $distpath) {
-        $distdir =  Fs\DirUtils::normalizeDir($distpath);
+    public static function removeFiles($ficlist, $distpath)
+    {
+        $distdir = Fs\DirUtils::normalizeDir($distpath);
 
         $fs = self::getFileSystem($distdir);
 
@@ -103,36 +116,36 @@ class Manager {
 
         $currentdestdir = '';
 
-        foreach($script as $nbline=>$line){
-            $nbline++;
+        foreach ($script as $nbline => $line) {
+            ++$nbline;
             if (preg_match(';^(cd|rmd)?\s+([a-zA-Z0-9\/.\-_]+)\s*$;m', $line, $m)) {
-                if($m[1] == 'rmd'){
+                if ($m[1] == 'rmd') {
                     $fs->removeDir(Fs\DirUtils::normalizeDir($m[2]));
-                }
-                elseif($m[1] == 'cd') {
+                } elseif ($m[1] == 'cd') {
                     $currentdestdir = Fs\DirUtils::normalizeDir($m[2]);
-                }
-                else {
-
-                    if($m[2] == ''){
-                        throw new \Exception ( "$ficlist : file required on line $nbline \n");
+                } else {
+                    if ($m[2] == '') {
+                        throw new \Exception("$ficlist : file required on line $nbline \n");
                     }
 
                     $destfile = $currentdestdir.$m[2];
                     if (!file_exists($distdir.$destfile)) {
-                        if (self::$verbose)
+                        if (self::$verbose) {
                             echo "cannot remove $destfile. It doesn't exist anymore.\n";
+                        }
                         continue;
                     }
-                    if(self::$verbose)
-                        echo "remove  ".$destfile."\n";
-                    if (!$fs->removeFile($destfile))
-                        throw new \Exception ( " $ficlist: cannot remove file ".$m[2].", line $nbline \n");
+                    if (self::$verbose) {
+                        echo 'remove  '.$destfile."\n";
+                    }
+                    if (!$fs->removeFile($destfile)) {
+                        throw new \Exception(" $ficlist: cannot remove file ".$m[2].", line $nbline \n");
+                    }
                 }
-            }elseif(preg_match("!^\s*(\#.*)?$!",$line)){
+            } elseif (preg_match("!^\s*(\#.*)?$!", $line)) {
                 // we ignore comments
-            }else{
-                throw new \Exception ( "$ficlist : syntax error on line $nbline \n");
+            } else {
+                throw new \Exception("$ficlist : syntax error on line $nbline \n");
             }
         }
     }

@@ -81,3 +81,7 @@ This library has just been extract from an other repository, http://github.com/j
 So its history may contain some cryptic commit comments, that have signification only for the Jelix Framework.
 This library has been used for long time to build packages of Jelix.
 
+Dependencies
+------------
+
+This lib includes the Javascript Packer class from http://joliclic.free.fr/php/javascript-packer/en/.
