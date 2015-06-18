@@ -23,7 +23,7 @@ class Os implements FsInterface
 
     public function createDir($dir)
     {
-        return DirUtils::createDir($this->rootPath.$dir);
+        return \Jelix\FileUtilities\Directory::create($this->rootPath.$dir);
     }
 
     public function copyFile($sourcefile, $targetFile)
@@ -55,7 +55,7 @@ class Os implements FsInterface
             //echo "cannot remove $dir. It doesn't exist.\n";
             return false;
         }
-        DirUtils::removeDir($this->rootPath.$dir);
+        \Jelix\FileUtilities\Directory::remove($this->rootPath.$dir);
 
         return true;
     }

@@ -47,6 +47,6 @@ try{
   exit(1);
 }
 
-\Jelix\BuildTools\FileSystem\DirUtils::createDir(dirname($distfile));
+\Jelix\FileUtilities\Directory::create(dirname($distfile));
 file_put_contents($distfile, $dist);
 exit(0);

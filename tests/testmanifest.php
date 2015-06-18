@@ -6,7 +6,7 @@
 * @licence     GNU General Public Licence see LICENCE file or http://www.gnu.org/licenses/gpl.html
 */
 use Jelix\BuildTools\Manifest\Reader as Reader;
-use Jelix\BuildTools\FileSystem\DirUtils;
+use Jelix\FileUtilities\Directory;
 
 
 class ManifestTestCase extends PHPUnit_Framework_TestCase {
@@ -41,7 +41,7 @@ class ManifestTestCase extends PHPUnit_Framework_TestCase {
 
     function setUp() {
         if (file_exists(__DIR__.'/_result')) {
-            DirUtils::removeDir(__DIR__.'/_result', false);
+            Directory::remove(__DIR__.'/_result', false);
         }
         else {
             mkdir(__DIR__.'/_result');

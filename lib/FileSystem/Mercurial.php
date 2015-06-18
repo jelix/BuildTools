@@ -18,7 +18,7 @@ class Mercurial extends Subversion
 
     public function createDir($dir)
     {
-        return DirUtils::createDir($this->rootPath.$dir);
+        return \Jelix\FileUtilities\Directory::create($this->rootPath.$dir);
     }
 
     public static function revision($path = '.')
