@@ -55,6 +55,13 @@ class ManifestTestCase extends PHPUnit_Framework_TestCase {
         $this->verifyDirContent(__DIR__.'/expecteddirs/simplecopy/', __DIR__.'/_result/');
     }
 
+    function testSimpleCopyCdDot() {
+        $manifest = new Reader(__DIR__.'/manifests/simplecopydot.mn', __DIR__.'/sourcedir/', __DIR__.'/_result');
+        $manifest->process(array(), false);
+        $this->verifyDirContent(__DIR__.'/expecteddirs/simplecopy/', __DIR__.'/_result/');
+    }
+
+
     function testSimpleCopyWithALL() {
         $manifest = new Reader(__DIR__.'/manifests/simplecopyALL.mn', __DIR__.'/sourcedir/', __DIR__.'/_result');
         $manifest->process(array(), false);

@@ -26,7 +26,11 @@ class DirUtils
 
     public static function normalizeDir($dirpath)
     {
-        return rtrim(\Jelix\FileUtilities\Path::normalizePath($dirpath), '/').'/';
+        $dir =  rtrim(\Jelix\FileUtilities\Path::normalizePath($dirpath), '/');
+        if ($dir == '') {
+            return '';
+        }
+        return $dir.'/';
     }
 
     /**
