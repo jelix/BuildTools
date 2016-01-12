@@ -2,9 +2,10 @@
 
 /**
  * @author      Laurent Jouanneau
- * @contributor
+ * @contributor Julien Issler
  *
  * @copyright   2006-2015 Laurent Jouanneau
+ * @copyright   2016 Julien Issler
  *
  * @link        http://www.jelix.org
  * @licence     GNU General Public Licence see LICENCE file or http://www.gnu.org/licenses/gpl.html
@@ -41,8 +42,18 @@ class PreProcessor
     const ERR_EXPR_SYNTAX = 5;
     const ERR_EXPR_SYNTAX_TOK = 6;
 
+    protected $authorizedToken = array(T_DNUMBER, T_BOOLEAN_AND, T_BOOLEAN_OR,
+        T_IS_EQUAL,T_IS_GREATER_OR_EQUAL,T_IS_IDENTICAL,T_IS_NOT_EQUAL,T_IS_NOT_IDENTICAL,
+        T_IS_SMALLER_OR_EQUAL, T_LOGICAL_AND, T_LOGICAL_OR, T_LOGICAL_XOR, T_LNUMBER,
+        T_CONSTANT_ENCAPSED_STRING, T_WHITESPACE, );
+
+    protected $authorizedChar = array('.', '+', '-', '/', '*','<','>', '!');
+
     public function __construct()
     {
+        if (defined('T_CHARACTER')) {
+            $this->authorizedToken[] = T_CHARACTER;
+        }
     }
 
     public function setVar($name, $value = '')
@@ -288,13 +299,6 @@ class PreProcessor
 
         return $result;
     }
-
-    protected $authorizedToken = array(T_DNUMBER, T_BOOLEAN_AND, T_BOOLEAN_OR, T_CHARACTER,
-        T_IS_EQUAL,T_IS_GREATER_OR_EQUAL,T_IS_IDENTICAL,T_IS_NOT_EQUAL,T_IS_NOT_IDENTICAL,
-        T_IS_SMALLER_OR_EQUAL, T_LOGICAL_AND, T_LOGICAL_OR, T_LOGICAL_XOR, T_LNUMBER,
-        T_CONSTANT_ENCAPSED_STRING, T_WHITESPACE, );
-
-    protected $authorizedChar = array('.', '+', '-', '/', '*','<','>', '!');
 
     protected function evalExpression($expression, $filename, $nb)
     {
