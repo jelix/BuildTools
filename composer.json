@@ -13,7 +13,7 @@
     ],
     "require": {
         "php": ">=5.3",
-        "jelix/file-utilities" : "1.7.*"
+        "jelix/file-utilities" : "1.8.*"
     },
     "require-dev" : {
         "phpunit/phpunit": "4.3.*"
