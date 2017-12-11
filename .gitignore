@@ -6,3 +6,4 @@ TAGS
 vendor/
 composer.lock
 tests/_result/
+.idea
