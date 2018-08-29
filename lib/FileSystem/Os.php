@@ -32,6 +32,9 @@ class Os implements FsInterface
             return false;
         }
 
+        if (is_executable($sourcefile)) {
+            chmod($this->rootPath.$targetFile, 0755);
+        }
         return true;
     }
 
