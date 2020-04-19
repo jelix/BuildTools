@@ -58,7 +58,7 @@ class Bootstrap
                 if (preg_match("/^(\w+)=(.*)$/", $var, $m)) {
                     Environment::set($m[1], $m[2]);
                 } else {
-                    throw new Exception('bad syntax for -D option  :'.$var."\n");
+                    throw new \Exception('bad syntax for -D option  :'.$var."\n");
                 }
             }
         }

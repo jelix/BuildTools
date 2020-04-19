@@ -113,7 +113,7 @@ class Environment
         }
     }
 
-    protected static function verifyName($name, $verbose = true)
+    public static function verifyName($name, $verbose = true)
     {
         static $var = array('_ENV','_GET','_POST','_SERVER','GLOBALS','_FILES', '_COOKIE',
         'HTTP_ENV_VARS','HTTP_POST_VARS','HTTP_GET_VARS','HTTP_COOKIE_VARS',
