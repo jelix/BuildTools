@@ -34,9 +34,10 @@ class Environment
      *      the value of this boolean is the default value
      *    2: no value
      *
-     * @param array $build_options the options to create as globals variables
+     * @param array $build_options the options to import as globals variables
+     * @param bool $exportToGlobal if true (default), variables
      */
-    public static function init($build_options)
+    public static function init($build_options, $exportToGlobal = true)
     {
         self::$variables_def = $build_options;
 
@@ -51,7 +52,7 @@ class Environment
             if (!isset($def[2]) && !is_bool(self::$variables_def[$name][1])) {
                 self::$variables_def[$name][2] = '';
             }
-            self::storeValue($name, self::$variables_def[$name][1]);
+            self::storeValue($name, self::$variables_def[$name][1], $exportToGlobal);
         }
     }
 
@@ -76,21 +77,21 @@ class Environment
         return $values;
     }
 
-    public static function set($name, $value)
+    public static function set($name, $value, $exportToGlobal=true)
     {
         if (!self::verifyName($name)) {
             echo "warning: unknown option name ($name)\n";
         } else {
-            self::storeValue($name, $value);
+            self::storeValue($name, $value, $exportToGlobal);
         }
     }
 
-    public static function addIni($file)
+    public static function addIni($file, $exportToGlobal = true)
     {
         if ($arr = parse_ini_file($file, false)) {
             foreach ($arr as $k => $v) {
                 if (self::verifyName($k)) {
-                    self::storeValue($k, $v);
+                    self::storeValue($k, $v, $exportToGlobal);
                 } else {
                     echo "warning: unknown option name ($k) in the ini file\n";
                 }
@@ -100,7 +101,7 @@ class Environment
         }
     }
 
-    public static function setFromFile($name, $file, $onlyIfNotExists = false)
+    public static function setFromFile($name, $file, $onlyIfNotExists = false, $exportToGlobal=true)
     {
         if ($onlyIfNotExists && isset($GLOBALS[$name]) && $GLOBALS[$name] != '') {
             return;
@@ -108,7 +109,7 @@ class Environment
         if (!self::verifyName($name)) {
             echo "warning: unknown option name ($name)\n";
         } else {
-            self::storeValue($name, file_get_contents($file));
+            self::storeValue($name, file_get_contents($file), $exportToGlobal);
         }
     }
 
@@ -127,7 +128,7 @@ class Environment
         }
     }
 
-    protected static function storeValue($name, $value)
+    protected static function storeValue($name, $value, $exportToGlobal)
     {
         if (is_bool(self::$variables_def[$name][1])) {
             if ($value == 'true' || $value === true || $value == 1 || $value == 'on' || $value == 'yes') {
@@ -148,8 +149,9 @@ class Environment
                 }
             }
         }
-
-        $GLOBALS[$name] = $value;
+        if ($exportToGlobal) {
+            $GLOBALS[$name] = $value;
+        }
     }
 
     public static function help($showHiddenOption = false)
