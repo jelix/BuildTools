@@ -56,11 +56,20 @@ class PreProcessor
         }
     }
 
+    /**
+     * Set a variable
+     * @param string $name variable name
+     * @param string $value variable value
+     */
     public function setVar($name, $value = '')
     {
         $this->_variables[$name] = $value;
     }
 
+    /**
+     * delete a variable
+     * @param string $name variable name
+     */
     public function unsetVar($name)
     {
         if (isset($this->_variables[$name])) {
@@ -68,12 +77,40 @@ class PreProcessor
         }
     }
 
+    /**
+     * Set many variables
+     * @param array $arr keys are variable names, values are variables value.
+     */
     public function setVars($arr)
     {
         $this->_variables = $arr;
     }
 
+    /**
+     * Parse the given file and generate a content by interpreting all preprocessor statements
+     *
+     * @param string $filename path to the file to parse
+     * @return string the generated content.
+     * @throws Exception
+     */
     public function parseFile($filename)
+    {
+        return $this->parseContent(file_get_contents($filename), $filename);
+    }
+
+    /**
+     * Parse the given string and generate a content by interpreting all preprocessor statements
+     *
+     * @param string $content content to parse
+     * @return string the generated content.
+     * @throws Exception
+     */
+    public function parseString($content)
+    {
+        return $this->parseContent($content, 'string');
+    }
+
+    protected function parseContent($content, $filename)
     {
         $this->errorCode = 0;
         $this->errorLine = 0;
@@ -85,7 +122,7 @@ class PreProcessor
             $this->_savedVariables = $this->_variables;
         }
 
-        $source = explode("\n", file_get_contents($filename));
+        $source = explode("\n", $content);
 
         $result = '';
         $nb = -1;
