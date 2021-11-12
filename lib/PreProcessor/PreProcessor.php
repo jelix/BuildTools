@@ -335,8 +335,14 @@ class PreProcessor
         }
 
         $val = null;
+        try {
+            $resultEval = eval('$val='.$expr.';');
+        }
+        catch(\ParseError $e) {
+            throw new Exception($filename, $nb, self::ERR_EXPR_SYNTAX, $expression);
+        }
 
-        if (false === @eval('$val='.$expr.';')) {
+        if ($resultEval === false) {
             throw new Exception($filename, $nb, self::ERR_EXPR_SYNTAX, $expression);
         } else {
             return $val;
