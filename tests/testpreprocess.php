@@ -9,7 +9,7 @@
 
 define('PP_DATA_DIR', __DIR__.'/ppdatas/');
 
-class PreProcTestCase extends PHPUnit_Framework_TestCase {
+class PreProcTestCase extends \PHPUnit\Framework\TestCase {
     protected $proc;
 
     public function providerSimpleData() {
@@ -102,10 +102,10 @@ class PreProcTestCase extends PHPUnit_Framework_TestCase {
         );
     }
 
-    function setUp() {
+    function setUp() :void {
     }
 
-    function tearDown() {
+    function tearDown() :void {
 
     }
 

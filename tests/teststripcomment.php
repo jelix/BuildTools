@@ -9,7 +9,7 @@
 
 define('SC_DATA_DIR',__DIR__.'/scdata/');
 
-class StripCommentTestCase extends PHPUnit_Framework_TestCase {
+class StripCommentTestCase extends \PHPUnit\Framework\TestCase {
 
     public function providerTestFiles() {
         return array(
@@ -17,10 +17,10 @@ class StripCommentTestCase extends PHPUnit_Framework_TestCase {
         );
     }
 
-    function setUp() {
+    function setUp(): void {
     }
 
-    function tearDown() {
+    function tearDown(): void {
 
     }
 

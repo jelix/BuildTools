@@ -9,7 +9,7 @@ use Jelix\BuildTools\Manifest\Reader as Reader;
 use Jelix\FileUtilities\Directory;
 
 
-class ManifestTestCase extends PHPUnit_Framework_TestCase {
+class ManifestTestCase extends \PHPUnit\Framework\TestCase {
 
     protected function verifyDirContent($expectedDir, $resultDir) {
 
@@ -39,7 +39,7 @@ class ManifestTestCase extends PHPUnit_Framework_TestCase {
         }
     }
 
-    function setUp() {
+    function setUp() : void {
         if (file_exists(__DIR__.'/_result')) {
             Directory::remove(__DIR__.'/_result', false);
         }
