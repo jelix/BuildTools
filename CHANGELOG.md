@@ -5,6 +5,7 @@ CHANGELOG
 -----
 
 - New method Preprocessor::parseString()
+- Manifests: exception when a file does not exists.
 - Fix php deprecated syntax (PHP 8)
 - Fix preprocessor: ParserError should be catch during expression evaluation
 - update PHPUnit to 8.5 to test against php 8

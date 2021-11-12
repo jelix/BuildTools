@@ -169,6 +169,9 @@ class Reader
             $this->preproc->setVars($this->preprocvars);
 
             try {
+                if (!file_exists($sourcefile)) {
+                    throw new \Exception($this->ficlist.": line $nbline, dest file ".$sourcefile." doesn't not exists");
+                }
                 $contents = $this->preproc->parseFile($sourcefile);
             } catch (\Exception $e) {
                 throw new \Exception($this->ficlist.": line $nbline, cannot process file ".$m[2].' ('.$e.")\n");
@@ -196,6 +199,9 @@ class Reader
             if ($this->verbose) {
                 echo "strip comment in  $sourcefile\tto\t".$this->distdir.$destfile."\n";
             }
+            if (!file_exists($sourcefile)) {
+                throw new \Exception($this->ficlist.": line $nbline, dest file ".$sourcefile." doesn't not exists");
+            }
             $src = file_get_contents($sourcefile);
             $this->fs->setFileContent($destfile, \Jelix\BuildTools\PreProcessor\PhpCommentsRemover::stripComments($src, $this->indentation));
         } elseif ($doCompression && preg_match("/\.js$/", $destfile)) {
@@ -203,6 +209,9 @@ class Reader
                 echo 'compress javascript file '.$destfile."\n";
             }
 
+            if (!file_exists($sourcefile)) {
+                throw new \Exception($this->ficlist.": line $nbline, dest file ".$sourcefile." doesn't not exists");
+            }
             $script = file_get_contents($sourcefile);
             $packer = new \JavaScriptPacker($script, 0, true, false);
             $this->fs->setFileContent($destfile, $packer->pack());
@@ -217,6 +226,9 @@ class Reader
 
             $encoding = preg_split('/[\s,]+/', $this->targetCharset);
 
+            if (!file_exists($sourcefile)) {
+                throw new \Exception($this->ficlist.": line $nbline, dest file ".$sourcefile." doesn't not exists");
+            }
             $content = file_get_contents($sourcefile);
             if ($this->sourceCharset != '') {
                 $encode = $this->sourceCharset;
