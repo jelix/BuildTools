@@ -18,21 +18,21 @@ A build script accept in parameters the name of an ini file containing some buil
 To create a script:
 
 - You should define first an array, containing all options that can be in the ini file
-- Then you call \Jelix\BuildTools\Cli\Bootstrap::start() with the array. It then read
+- Then you call `\Jelix\BuildTools\Cli\Bootstrap::start()` with the array. It then read
   the ini file and other options in the command line.
 - Then you can write your instructions
 
 You can use several classes:
 
-- \Jelix\BuildTools\Cli\Environment to read options value of the ini file
-- \Jelix\BuildTools\Manifest\Manager to use manifest files.
+- `\Jelix\BuildTools\Cli\Environment` to read options value of the ini file
+- `\Jelix\BuildTools\Manifest\Manager` to use manifest files.
    A manifest file is a file containing a list of files to copy in a specific directory.
    The syntax in a manifest file allows to indicate if a file should be preprocessed or not
    and how.
 
 
 For scripts written for JelixBuildTools lower than 2.0 (jBuildTools), include the file
-lib/legacy/init.php instead of the old jBuild.inc.php.
+`lib/legacy/init.php` instead of the old `jBuild.inc.php`.
 
 More documentation later.
 
@@ -42,7 +42,7 @@ preprocess.php
 
 This is a tool to preprocess source file. It generates source file from other source file which
 contain preprocessing instruction. So you can generate source file according to parameters 
-(environment variables). see http://developer.jelix.org/wiki/en/preprocessor
+(environment variables).
 
 usage :
 
